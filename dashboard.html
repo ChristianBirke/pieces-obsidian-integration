@@ -138,137 +138,212 @@
         
         .epic-grid {
             display: grid;
-            gap: 20px;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
             margin-bottom: 40px;
         }
         
-        .epic-card {
+        .epic-overview {
             background: white;
             border-radius: 16px;
+            padding: 30px;
+            text-align: center;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            overflow: hidden;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .epic-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-        }
-        
-        .epic-header {
-            padding: 25px;
-            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
-            color: white;
             position: relative;
+            overflow: hidden;
         }
         
-        .epic-header.completed {
-            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+        .epic-overview:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
         }
         
-        .epic-header.skipped {
-            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+        .epic-overview::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #ecf0f1;
         }
         
-        .epic-header.next {
-            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+        .epic-overview.completed::before {
+            background: linear-gradient(90deg, #27ae60, #2ecc71);
+        }
+        
+        .epic-overview.skipped::before {
+            background: linear-gradient(90deg, #f39c12, #e67e22);
+        }
+        
+        .epic-overview.next::before {
+            background: linear-gradient(90deg, #9b59b6, #8e44ad);
         }
         
         .epic-number {
-            font-size: 1rem;
-            opacity: 0.9;
-            margin-bottom: 5px;
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 10px;
+            font-weight: 500;
         }
         
         .epic-title {
-            font-size: 1.5rem;
+            font-size: 1.1rem;
             font-weight: 600;
-            margin-bottom: 10px;
-        }
-        
-        .epic-duration {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-        
-        .epic-body {
-            padding: 25px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            line-height: 1.3;
         }
         
         .epic-status {
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
+            gap: 8px;
             margin-bottom: 15px;
         }
         
         .status-icon {
-            width: 24px;
-            height: 24px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
             color: white;
+            font-size: 0.8rem;
         }
         
         .status-icon.completed { background: #27ae60; }
         .status-icon.skipped { background: #f39c12; }
         .status-icon.next { background: #9b59b6; }
         
-        .epic-description {
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 20px;
+        .status-label {
+            font-size: 0.9rem;
+            font-weight: 600;
         }
         
-        .progress-bar {
-            background: #ecf0f1;
-            height: 8px;
-            border-radius: 4px;
-            overflow: hidden;
+        .status-label.completed { color: #27ae60; }
+        .status-label.skipped { color: #f39c12; }
+        .status-label.next { color: #9b59b6; }
+        
+        .epic-duration {
+            font-size: 0.8rem;
+            color: #666;
             margin-bottom: 15px;
         }
         
-        .progress-fill {
-            height: 100%;
-            border-radius: 4px;
-            transition: width 0.3s ease;
-        }
-        
-        .progress-fill.completed { 
-            background: linear-gradient(90deg, #27ae60, #2ecc71); 
-            width: 100%; 
-        }
-        
-        .progress-fill.skipped { 
-            background: linear-gradient(90deg, #f39c12, #e67e22); 
-            width: 100%; 
-        }
-        
-        .progress-fill.next { 
-            background: linear-gradient(90deg, #9b59b6, #8e44ad); 
-            width: 0%; 
-        }
-        
-        .achievements {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        
-        .achievement {
-            background: #ecf0f1;
-            padding: 8px 16px;
-            border-radius: 20px;
+        .epic-result {
             font-size: 0.85rem;
+            color: #555;
+            line-height: 1.4;
+        }
+        
+        .progress-overview {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            margin: 30px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .progress-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 30px;
             color: #2c3e50;
         }
         
-        .achievement.completed {
-            background: #d5f4e6;
-            color: #27ae60;
+        .progress-visual {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 25px;
+            height: 40px;
+        }
+        
+        .progress-segment {
+            flex: 1;
+            height: 100%;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress-segment.completed {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+        }
+        
+        .progress-segment.skipped {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+        }
+        
+        .progress-segment.next {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            opacity: 0.6;
+        }
+        
+        .progress-legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+        }
+        
+        .legend-color.completed { background: #27ae60; }
+        .legend-color.skipped { background: #f39c12; }
+        .legend-color.next { background: #9b59b6; }
+        
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .summary-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .summary-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .summary-number.completed { color: #27ae60; }
+        .summary-number.skipped { color: #f39c12; }
+        .summary-number.next { color: #9b59b6; }
+        
+        .summary-label {
+            font-size: 0.9rem;
+            color: #666;
         }
         
         .timeline {
@@ -339,6 +414,32 @@
             .stats-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .epic-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .progress-visual {
+                flex-direction: column;
+                height: auto;
+                gap: 8px;
+            }
+            
+            .progress-segment {
+                height: 50px;
+                font-size: 0.8rem;
+            }
+            
+            .summary-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 1200px) {
+            .epic-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
         }
     </style>
 </head>
@@ -379,141 +480,107 @@
         <div class="epics-container">
             <h2 class="section-title">Epic Progress Overview</h2>
             
+            <!-- Epic Overview Grid -->
             <div class="epic-grid">
-                <!-- Epic 1.0 -->
-                <div class="epic-card">
-                    <div class="epic-header completed">
-                        <div class="epic-number">EPIC 1.0</div>
-                        <div class="epic-title">Research & Discovery</div>
-                        <div class="epic-duration">Planned: 2-3 weeks • Actual: 1 hour</div>
+                <div class="epic-overview completed">
+                    <div class="epic-number">EPIC 1.0</div>
+                    <div class="epic-title">Research & Discovery</div>
+                    <div class="epic-status">
+                        <div class="status-icon completed">✓</div>
+                        <div class="status-label completed">COMPLETED</div>
                     </div>
-                    <div class="epic-body">
-                        <div class="epic-status">
-                            <div class="status-icon completed">✓</div>
-                            <strong>COMPLETED - Rapid Validation Success</strong>
-                        </div>
-                        <div class="epic-description">
-                            Discovered CLI is broken, found direct file system access approach, built working prototype.
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill completed"></div>
-                        </div>
-                        <div class="achievements">
-                            <div class="achievement completed">CLI Analysis ✓</div>
-                            <div class="achievement completed">File System Discovery ✓</div>
-                            <div class="achievement completed">Working Prototype ✓</div>
-                            <div class="achievement completed">Data Validation ✓</div>
-                        </div>
-                    </div>
+                    <div class="epic-duration">Planned: 2-3 weeks<br>Actual: 1 hour</div>
+                    <div class="epic-result">Rapid validation bypassed research phase. Working prototype delivered.</div>
                 </div>
                 
-                <!-- Epic 2.0 -->
-                <div class="epic-card">
-                    <div class="epic-header skipped">
-                        <div class="epic-number">EPIC 2.0</div>
-                        <div class="epic-title">Technical Architecture</div>
-                        <div class="epic-duration">Planned: 2-3 weeks • Actual: Skipped</div>
+                <div class="epic-overview skipped">
+                    <div class="epic-number">EPIC 2.0</div>
+                    <div class="epic-title">Technical Architecture</div>
+                    <div class="epic-status">
+                        <div class="status-icon skipped">⚠</div>
+                        <div class="status-label skipped">SKIPPED</div>
                     </div>
-                    <div class="epic-body">
-                        <div class="epic-status">
-                            <div class="status-icon skipped">⚠</div>
-                            <strong>SKIPPED - Architecture Emerged from Code</strong>
-                        </div>
-                        <div class="epic-description">
-                            Architecture naturally emerged from working prototype. No separate design phase needed.
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill skipped"></div>
-                        </div>
-                        <div class="achievements">
-                            <div class="achievement completed">Direct File Access Pattern</div>
-                            <div class="achievement completed">Zero Dependencies Design</div>
-                            <div class="achievement completed">Gzip Processing Pipeline</div>
-                        </div>
-                    </div>
+                    <div class="epic-duration">Planned: 2-3 weeks<br>Actual: N/A</div>
+                    <div class="epic-result">Architecture emerged naturally from working code implementation.</div>
                 </div>
                 
-                <!-- Epic 3.0 -->
-                <div class="epic-card">
-                    <div class="epic-header completed">
-                        <div class="epic-number">EPIC 3.0</div>
-                        <div class="epic-title">Core Implementation</div>
-                        <div class="epic-duration">Planned: 4-5 weeks • Actual: 1 hour</div>
+                <div class="epic-overview completed">
+                    <div class="epic-number">EPIC 3.0</div>
+                    <div class="epic-title">Core Implementation</div>
+                    <div class="epic-status">
+                        <div class="status-icon completed">✓</div>
+                        <div class="status-label completed">COMPLETED</div>
                     </div>
-                    <div class="epic-body">
-                        <div class="epic-status">
-                            <div class="status-icon completed">✓</div>
-                            <strong>COMPLETED - pieces_to_obsidian.py Delivered</strong>
-                        </div>
-                        <div class="epic-description">
-                            Functional converter with extraction, decompression, transformation, and export capabilities.
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill completed"></div>
-                        </div>
-                        <div class="achievements">
-                            <div class="achievement completed">Data Extraction ✓</div>
-                            <div class="achievement completed">Gzip Decompression ✓</div>
-                            <div class="achievement completed">Markdown Conversion ✓</div>
-                            <div class="achievement completed">YAML Frontmatter ✓</div>
-                            <div class="achievement completed">File Export ✓</div>
-                        </div>
-                    </div>
+                    <div class="epic-duration">Planned: 4-5 weeks<br>Actual: 1 hour</div>
+                    <div class="epic-result">pieces_to_obsidian.py delivered with full functionality.</div>
                 </div>
                 
-                <!-- Epic 4.0 -->
-                <div class="epic-card">
-                    <div class="epic-header next">
-                        <div class="epic-number">EPIC 4.0</div>
-                        <div class="epic-title">User Experience & Enhancement</div>
-                        <div class="epic-duration">Ready for Development</div>
+                <div class="epic-overview next">
+                    <div class="epic-number">EPIC 4.0</div>
+                    <div class="epic-title">User Experience & Enhancement</div>
+                    <div class="epic-status">
+                        <div class="status-icon next">→</div>
+                        <div class="status-label next">READY</div>
                     </div>
-                    <div class="epic-body">
-                        <div class="epic-status">
-                            <div class="status-icon next">→</div>
-                            <strong>NEXT PHASE - Enhancement Opportunities</strong>
-                        </div>
-                        <div class="epic-description">
-                            Add CLI interface, configuration options, improved UX, and advanced features to the working solution.
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill next"></div>
-                        </div>
-                        <div class="achievements">
-                            <div class="achievement">CLI Arguments</div>
-                            <div class="achievement">Configuration File</div>
-                            <div class="achievement">Better Title Extraction</div>
-                            <div class="achievement">Date Filtering</div>
-                            <div class="achievement">Batch Processing</div>
-                        </div>
-                    </div>
+                    <div class="epic-duration">Planned: 3-4 weeks<br>Status: Ready</div>
+                    <div class="epic-result">CLI interface, config options, UX improvements available for development.</div>
                 </div>
                 
-                <!-- Epic 5.0 -->
-                <div class="epic-card">
-                    <div class="epic-header next">
-                        <div class="epic-number">EPIC 5.0</div>
-                        <div class="epic-title">Testing & Documentation</div>
-                        <div class="epic-duration">Optional Enhancement</div>
+                <div class="epic-overview next">
+                    <div class="epic-number">EPIC 5.0</div>
+                    <div class="epic-title">Testing & Documentation</div>
+                    <div class="epic-status">
+                        <div class="status-icon next">→</div>
+                        <div class="status-label next">OPTIONAL</div>
                     </div>
-                    <div class="epic-body">
-                        <div class="epic-status">
-                            <div class="status-icon next">→</div>
-                            <strong>OPTIONAL - Working Solution is Documented</strong>
-                        </div>
-                        <div class="epic-description">
-                            Core functionality is working and documented. Additional testing and formal documentation as needed.
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill next"></div>
-                        </div>
-                        <div class="achievements">
-                            <div class="achievement">Unit Tests</div>
-                            <div class="achievement">Integration Tests</div>
-                            <div class="achievement">User Guide</div>
-                            <div class="achievement">API Documentation</div>
-                        </div>
+                    <div class="epic-duration">Planned: 2-3 weeks<br>Status: Optional</div>
+                    <div class="epic-result">Core solution documented. Additional testing and docs as needed.</div>
+                </div>
+            </div>
+            
+            <!-- Progress Overview -->
+            <div class="progress-overview">
+                <h3 class="progress-title">Epic Progress Visual</h3>
+                <div class="progress-visual">
+                    <div class="progress-segment completed">Epic 1.0<br>✓ DONE</div>
+                    <div class="progress-segment skipped">Epic 2.0<br>⚠ SKIP</div>
+                    <div class="progress-segment completed">Epic 3.0<br>✓ DONE</div>
+                    <div class="progress-segment next">Epic 4.0<br>→ READY</div>
+                    <div class="progress-segment next">Epic 5.0<br>→ OPT</div>
+                </div>
+                <div class="progress-legend">
+                    <div class="legend-item">
+                        <div class="legend-color completed"></div>
+                        <span>Completed</span>
                     </div>
+                    <div class="legend-item">
+                        <div class="legend-color skipped"></div>
+                        <span>Skipped</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color next"></div>
+                        <span>Ready/Optional</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Summary Statistics -->
+            <div class="summary-stats">
+                <div class="summary-card">
+                    <div class="summary-number completed">2</div>
+                    <div class="summary-label">Epics Completed</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-number skipped">1</div>
+                    <div class="summary-label">Epic Skipped</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-number next">2</div>
+                    <div class="summary-label">Epics Ready</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-number completed">40%</div>
+                    <div class="summary-label">Core Features Done</div>
                 </div>
             </div>
             
