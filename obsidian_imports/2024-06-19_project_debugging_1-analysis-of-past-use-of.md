@@ -1,12 +1,19 @@
----
-title: "To assist you effectively, let's analyze your past..."
-created: 2025-06-19T19:33:07.981987
-tags: [pieces-import, workstream]
-source: pieces
+---\n\ncontent_category: debugging
+content_category: debugging
+created: 2025-06-19 19:33:07.981987
 pieces_id: 345c1852-961d-44d0-a9cb-5d7ccf77a924
----
-
-# To assist you effectively, let's analyze your past...
+source: pieces
+tags:
+- pieces-import
+- workstream
+- debugging
+- '#project'
+- analysis
+- past
+title: 1 Analysis Of Past Use Of
+type: project
+workstream_activity: 1-Analysis-of-Past-Use-of
+---\n\n\n\n# To assist you effectively, let's analyze your past...
 
 To assist you effectively, let's analyze your past use of Claude code and develop criteria for evaluating the available models. 
 

@@ -1,12 +1,16 @@
----
-title: "Reformat the following to useful markdown: McKinse..."
-created: 2025-06-19T19:33:07.981233
-tags: [pieces-import, workstream]
-source: pieces
+---\n\ncontent_category: debugging
+content_category: debugging
+created: 2025-06-19 19:33:07.981233
 pieces_id: 778f50f3-7de9-4080-a816-cdfda87827f5
----
-
-# Reformat the following to useful markdown: McKinse...
+source: pieces
+tags:
+- pieces-import
+- workstream
+- debugging
+- '#project'
+title: 'Reformat the following to useful markdown: McKinse...'
+type: project
+---\n\n\n\n# Reformat the following to useful markdown: McKinse...
 
 Reformat the following to useful markdown: McKinsey & Company's presentation style is renowned for its clarity and effectiveness in conveying complex information to senior executives. The structure and design of their slides are built around key principles that enable presenters to communicate complex ideas with ease. These principles, including the Pyramid Principle, MECE Framework,
 data-driven insights, minimalist design, logical flow, and audience-centric approach, work together to create a persuasive and coherent narrative. The McKinsey presentation style has been refined over the years to meet the demands of business professionals who need to present strategic insights efficiently to senior executives. The firm's reputation

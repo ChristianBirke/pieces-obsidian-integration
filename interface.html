@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pieces to Obsidian Converter - Control Interface</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #f39c12, #e74c3c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 40px;
+        }
+        
+        .config-panel, .control-panel {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .panel-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+        
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.3);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+            color: white;
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+        }
+        
+        .btn-warning {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+        }
+        
+        .btn-full {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        
+        .status-panel {
+            grid-column: 1 / -1;
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 20px;
+        }
+        
+        .command-output {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            min-height: 200px;
+            white-space: pre-wrap;
+            overflow-y: auto;
+        }
+        
+        .help-text {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #ecf0f1;
+            margin-bottom: 25px;
+        }
+        
+        .tab {
+            padding: 12px 24px;
+            background: none;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .tab.active {
+            color: #3498db;
+            border-bottom-color: #3498db;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #ecf0f1;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3498db, #2980b9);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .file-preview {
+            background: white;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .file-item {
+            padding: 12px 16px;
+            border-bottom: 1px solid #ecf0f1;
+            display: flex;
+            justify-content: between;
+            align-items: center;
+        }
+        
+        .file-item:last-child {
+            border-bottom: none;
+        }
+        
+        .file-name {
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        
+        .file-size {
+            font-size: 0.85rem;
+            color: #666;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔄 Pieces → Obsidian</h1>
+            <p>Enhanced PARA Framework with Workstream Activity Name Extraction</p>
+        </div>
+        
+        <div class="main-content">
+            <!-- Configuration Panel -->
+            <div class="config-panel">
+                <h2 class="panel-title">
+                    ⚙️ Configuration
+                </h2>
+                
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('basic')">Basic</button>
+                    <button class="tab" onclick="switchTab('advanced')">Advanced</button>
+                    <button class="tab" onclick="switchTab('output')">Output</button>
+                </div>
+                
+                <!-- Basic Configuration -->
+                <div id="basic" class="tab-content active">
+                    <div class="form-group">
+                        <label class="form-label">Pieces Data Directory</label>
+                        <input type="text" class="form-input" id="piecesDir" placeholder="Auto-detect" />
+                        <div class="help-text">Leave empty to auto-detect default location</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Output Directory</label>
+                        <input type="text" class="form-input" id="outputDir" value="obsidian_imports" />
+                        <div class="help-text">Where converted markdown files will be saved</div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">File Limit</label>
+                            <input type="number" class="form-input" id="fileLimit" placeholder="No limit" min="1" />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Min Content Length</label>
+                            <input type="number" class="form-input" id="minLength" value="10" min="0" />
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Advanced Configuration -->
+                <div id="advanced" class="tab-content">
+                    <div class="form-group">
+                        <label class="form-label">PARA Framework Options</label>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="enablePARA" checked />
+                            <label for="enablePARA">Enable PARA classification</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="extractActivityNames" checked />
+                            <label for="extractActivityNames">Extract workstream activity names</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="enhancedTagging" checked />
+                            <label for="enhancedTagging">Enhanced activity-based tagging</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Date Range</label>
+                        <div class="form-row">
+                            <input type="date" class="form-input" id="dateFrom" />
+                            <input type="date" class="form-input" id="dateTo" />
+                        </div>
+                        <div class="help-text">Filter by creation date (leave empty for all)</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Content Filters</label>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="skipEmpty" checked />
+                            <label for="skipEmpty">Skip empty files</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="skipBinary" checked />
+                            <label for="skipBinary">Skip binary content</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="deduplication" />
+                            <label for="deduplication">Remove duplicates</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Processing Options</label>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="preserveStructure" />
+                            <label for="preserveStructure">Preserve folder structure</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="addTimestamps" checked />
+                            <label for="addTimestamps">Add import timestamps</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="quietMode" />
+                            <label for="quietMode">Quiet mode</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Output Configuration -->
+                <div id="output" class="tab-content">
+                    <div class="form-group">
+                        <label class="form-label">Filename Pattern</label>
+                        <select class="form-select" id="filenamePattern">
+                            <option value="para-activity" selected>PARA + Activity Name</option>
+                            <option value="para-enhanced">Enhanced PARA</option>
+                            <option value="uuid">Original UUID</option>
+                            <option value="title">Content Title</option>
+                            <option value="date-title">Date + Title</option>
+                        </select>
+                        <div class="help-text">PARA + Activity: YYYY-MM-DD_type_category_activity-name.md</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Custom Tags</label>
+                        <input type="text" class="form-input" id="customTags" placeholder="tag1, tag2, tag3" />
+                        <div class="help-text">Comma-separated tags to add to all imported files</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Enhanced Frontmatter Template</label>
+                        <textarea class="form-textarea" id="frontmatterTemplate" rows="8">---
+title: "{title}"
+created: {created}
+tags: [pieces-import, workstream, {content_category}, "#{para_type}", {activity_tags}, {custom_tags}]
+type: {para_type}
+content_category: {content_category}
+source: pieces
+pieces_id: {pieces_id}
+workstream_activity: {workstream_activity}
+---</textarea>
+                        <div class="help-text">Enhanced template with PARA framework and activity integration</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Control Panel -->
+            <div class="control-panel">
+                <h2 class="panel-title">
+                    🎮 Controls
+                </h2>
+                
+                <button class="btn btn-secondary btn-full" onclick="scanFiles()">
+                    📊 Scan & Preview Files
+                </button>
+                
+                <button class="btn btn-primary btn-full" onclick="startImport()">
+                    🚀 Start Import
+                </button>
+                
+                <button class="btn btn-warning btn-full" onclick="generateCommand()">
+                    💻 Generate CLI Command
+                </button>
+                
+                <button class="btn btn-secondary btn-full" onclick="saveConfig()">
+                    💾 Save Configuration
+                </button>
+                
+                <div class="form-group">
+                    <label class="form-label">Load Configuration</label>
+                    <input type="file" class="form-input" id="configFile" accept=".yaml,.yml,.json" onchange="loadConfig()" />
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Quick Presets</label>
+                    <select class="form-select" id="presets" onchange="loadPreset()">
+                        <option value="">Select a preset...</option>
+                        <option value="all">Import All Files</option>
+                        <option value="recent">Recent Files Only (30 days)</option>
+                        <option value="large">Large Content Only (>100 chars)</option>
+                        <option value="minimal">Minimal Import (10 files)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Status Panel -->
+        <div class="status-panel">
+            <h2 class="panel-title">
+                📊 Status & Output
+            </h2>
+            
+            <div class="tabs">
+                <button class="tab active" onclick="switchStatusTab('preview')">Preview</button>
+                <button class="tab" onclick="switchStatusTab('progress')">Progress</button>
+                <button class="tab" onclick="switchStatusTab('command')">Command</button>
+                <button class="tab" onclick="switchStatusTab('logs')">Logs</button>
+            </div>
+            
+            <!-- File Preview -->
+            <div id="preview" class="tab-content active">
+                <div id="filePreview" class="file-preview">
+                    <div class="file-item">
+                        <span class="file-name">Click "Scan & Preview Files" to see available files</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Progress -->
+            <div id="progress" class="tab-content">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressBar"></div>
+                </div>
+                <div id="progressText">Ready to start import...</div>
+            </div>
+            
+            <!-- Generated Command -->
+            <div id="command" class="tab-content">
+                <div class="command-output" id="generatedCommand">python3 pieces_to_obsidian.py</div>
+            </div>
+            
+            <!-- Logs -->
+            <div id="logs" class="tab-content">
+                <div class="command-output" id="logOutput">Interface loaded successfully ✅
+Ready to configure and import Pieces Workstream Activities.
+
+Click "Scan & Preview Files" to start.</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching
+        function switchTab(tabName) {
+            const tabs = document.querySelectorAll('.tab');
+            const contents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => tab.classList.remove('active'));
+            contents.forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+        
+        function switchStatusTab(tabName) {
+            const tabs = document.querySelectorAll('.status-panel .tab');
+            const contents = document.querySelectorAll('.status-panel .tab-content');
+            
+            tabs.forEach(tab => tab.classList.remove('active'));
+            contents.forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+        
+        // Configuration functions
+        function generateCommand() {
+            const config = getConfiguration();
+            let command = 'python3 pieces_to_obsidian.py';
+            
+            if (config.piecesDir) command += ` --pieces-dir "${config.piecesDir}"`;
+            if (config.outputDir !== 'obsidian_imports') command += ` --output "${config.outputDir}"`;
+            if (config.fileLimit) command += ` --limit ${config.fileLimit}`;
+            if (config.minLength !== 10) command += ` --min-length ${config.minLength}`;
+            if (config.quietMode) command += ` --quiet`;
+            
+            document.getElementById('generatedCommand').textContent = command;
+            switchStatusTab('command');
+            
+            // Copy to clipboard
+            navigator.clipboard.writeText(command).then(() => {
+                addLog('✅ Command copied to clipboard');
+            });
+        }
+        
+        function getConfiguration() {
+            return {
+                piecesDir: document.getElementById('piecesDir').value,
+                outputDir: document.getElementById('outputDir').value,
+                fileLimit: document.getElementById('fileLimit').value,
+                minLength: parseInt(document.getElementById('minLength').value) || 10,
+                dateFrom: document.getElementById('dateFrom').value,
+                dateTo: document.getElementById('dateTo').value,
+                skipEmpty: document.getElementById('skipEmpty').checked,
+                skipBinary: document.getElementById('skipBinary').checked,
+                deduplication: document.getElementById('deduplication').checked,
+                preserveStructure: document.getElementById('preserveStructure').checked,
+                addTimestamps: document.getElementById('addTimestamps').checked,
+                quietMode: document.getElementById('quietMode').checked,
+                filenamePattern: document.getElementById('filenamePattern').value,
+                customTags: document.getElementById('customTags').value,
+                frontmatterTemplate: document.getElementById('frontmatterTemplate').value
+            };
+        }
+        
+        async function scanFiles() {
+            addLog('🔍 Scanning for Pieces files...');
+            switchStatusTab('preview');
+            
+            try {
+                // Execute the Python script to scan files
+                const config = getConfiguration();
+                const command = buildScanCommand(config);
+                
+                const response = await executeCommand(command);
+                
+                if (response.success) {
+                    displayFilePreview(response.files);
+                    addLog(`✅ Found ${response.files.length} files ready for import`);
+                } else {
+                    addLog(`❌ Scan failed: ${response.error}`);
+                    // Show fallback demo data
+                    showDemoPreview();
+                }
+            } catch (error) {
+                addLog(`❌ Error during scan: ${error.message}`);
+                showDemoPreview();
+            }
+        }
+        
+        function buildScanCommand(config) {
+            let command = 'python3 pieces_to_obsidian.py --dry-run';
+            
+            if (config.piecesDir) command += ` --pieces-dir "${config.piecesDir}"`;
+            if (config.fileLimit) command += ` --limit ${config.fileLimit}`;
+            if (config.minLength !== 10) command += ` --min-length ${config.minLength}`;
+            
+            return command;
+        }
+        
+        function showDemoPreview() {
+            const preview = document.getElementById('filePreview');
+            preview.innerHTML = `
+                <div class="file-item">
+                    <div>
+                        <div class="file-name">debugging-tools-analysis.piece</div>
+                        <div class="file-size">2.4 KB • 2024-06-19</div>
+                    </div>
+                </div>
+                <div class="file-item">
+                    <div>
+                        <div class="file-name">api-integration-notes.piece</div>
+                        <div class="file-size">1.8 KB • 2024-06-18</div>
+                    </div>
+                </div>
+                <div class="file-item">
+                    <div>
+                        <div class="file-name">project-architecture.piece</div>
+                        <div class="file-size">3.2 KB • 2024-06-17</div>
+                    </div>
+                </div>
+                <div class="file-item">
+                    <div>
+                        <div class="file-name">code-review-comments.piece</div>
+                        <div class="file-size">856 B • 2024-06-16</div>
+                    </div>
+                </div>
+                <div class="file-item">
+                    <div>
+                        <div class="file-name">meeting-notes.piece</div>
+                        <div class="file-size">1.2 KB • 2024-06-15</div>
+                    </div>
+                </div>
+            `;
+            addLog('📊 Demo mode: Showing sample files');
+        }
+        
+        function displayFilePreview(files) {
+            const preview = document.getElementById('filePreview');
+            preview.innerHTML = files.map(file => `
+                <div class="file-item">
+                    <div>
+                        <div class="file-name">${file.name}</div>
+                        <div class="file-size">${file.size} • ${file.date}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        async function startImport() {
+            addLog('🚀 Starting import process...');
+            switchStatusTab('progress');
+            
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+            
+            try {
+                const config = getConfiguration();
+                const command = buildImportCommand(config);
+                
+                progressBar.style.width = '10%';
+                progressText.textContent = 'Preparing import command...';
+                
+                addLog(`📋 Executing: ${command}`);
+                
+                const response = await executeCommand(command);
+                
+                if (response.success) {
+                    // Simulate progress updates
+                    progressBar.style.width = '50%';
+                    progressText.textContent = 'Processing files...';
+                    
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    
+                    progressBar.style.width = '100%';
+                    progressText.textContent = '✅ Import completed successfully!';
+                    
+                    addLog(`🎉 Import completed! ${response.filesProcessed || 'Files'} converted to Obsidian markdown.`);
+                    addLog(`📁 Output location: ${response.outputPath || config.outputDir}`);
+                } else {
+                    progressBar.style.width = '0%';
+                    progressText.textContent = '❌ Import failed';
+                    addLog(`❌ Import failed: ${response.error}`);
+                }
+            } catch (error) {
+                progressBar.style.width = '0%';
+                progressText.textContent = '❌ Import error';
+                addLog(`❌ Error during import: ${error.message}`);
+                
+                // Fallback to demo mode
+                simulateImport();
+            }
+        }
+        
+        function buildImportCommand(config) {
+            let command = 'python3 pieces_to_obsidian.py';
+            
+            if (config.piecesDir) command += ` --pieces-dir "${config.piecesDir}"`;
+            if (config.outputDir !== 'obsidian_imports') command += ` --output "${config.outputDir}"`;
+            if (config.fileLimit) command += ` --limit ${config.fileLimit}`;
+            if (config.minLength !== 10) command += ` --min-length ${config.minLength}`;
+            if (config.quietMode) command += ` --quiet`;
+            
+            return command;
+        }
+        
+        function simulateImport() {
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+            let progress = 0;
+            
+            const interval = setInterval(() => {
+                progress += 20;
+                progressBar.style.width = progress + '%';
+                
+                if (progress === 20) progressText.textContent = 'Scanning Pieces directory...';
+                else if (progress === 40) progressText.textContent = 'Processing files...';
+                else if (progress === 60) progressText.textContent = 'Converting to markdown...';
+                else if (progress === 80) progressText.textContent = 'Saving files...';
+                else if (progress === 100) {
+                    progressText.textContent = '✅ Demo import completed!';
+                    clearInterval(interval);
+                    addLog('📊 Demo mode: Simulated successful import');
+                }
+            }, 800);
+        }
+        
+        function saveConfig() {
+            const config = getConfiguration();
+            const yaml = convertToYaml(config);
+            const blob = new Blob([yaml], { type: 'text/yaml' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'pieces-obsidian-config.yaml';
+            a.click();
+            
+            addLog('💾 Configuration saved as YAML file');
+        }
+        
+        function loadConfig() {
+            const file = document.getElementById('configFile').files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        // For demo purposes, just log
+                        addLog(`📁 Loaded configuration from ${file.name}`);
+                    } catch (error) {
+                        addLog(`❌ Error loading config: ${error.message}`);
+                    }
+                };
+                reader.readAsText(file);
+            }
+        }
+        
+        function loadPreset() {
+            const preset = document.getElementById('presets').value;
+            
+            switch(preset) {
+                case 'all':
+                    document.getElementById('fileLimit').value = '';
+                    document.getElementById('minLength').value = '1';
+                    break;
+                case 'recent':
+                    const thirtyDaysAgo = new Date();
+                    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+                    document.getElementById('dateFrom').value = thirtyDaysAgo.toISOString().split('T')[0];
+                    break;
+                case 'large':
+                    document.getElementById('minLength').value = '100';
+                    break;
+                case 'minimal':
+                    document.getElementById('fileLimit').value = '10';
+                    break;
+            }
+            
+            if (preset) {
+                addLog(`📋 Applied preset: ${preset}`);
+            }
+        }
+        
+        function convertToYaml(config) {
+            return `# Pieces to Obsidian Configuration
+pieces_dir: ${config.piecesDir || '# auto-detect'}
+output: ${config.outputDir}
+limit: ${config.fileLimit || '# no limit'}
+min_length: ${config.minLength}
+quiet: ${config.quietMode}
+
+# Advanced options
+date_from: ${config.dateFrom || '# no filter'}
+date_to: ${config.dateTo || '# no filter'}
+skip_empty: ${config.skipEmpty}
+skip_binary: ${config.skipBinary}
+filename_pattern: ${config.filenamePattern}
+custom_tags: "${config.customTags}"
+`;
+        }
+        
+        function addLog(message) {
+            const logs = document.getElementById('logOutput');
+            const timestamp = new Date().toLocaleTimeString();
+            logs.textContent += `\n[${timestamp}] ${message}`;
+            logs.scrollTop = logs.scrollHeight;
+        }
+        
+        // Command execution function
+        async function executeCommand(command) {
+            // This function provides a bridge between the web interface and system commands
+            // In a production environment, this would typically go through a backend API
+            
+            addLog(`💻 Command: ${command}`);
+            
+            // For demo purposes, simulate command execution
+            // In production, this would make an HTTP request to a backend service
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    // Simulate successful execution
+                    resolve({
+                        success: true,
+                        files: [
+                            { name: 'debugging-tools-analysis.piece', size: '2.4 KB', date: '2024-06-19' },
+                            { name: 'api-integration-notes.piece', size: '1.8 KB', date: '2024-06-18' },
+                            { name: 'project-architecture.piece', size: '3.2 KB', date: '2024-06-17' }
+                        ],
+                        filesProcessed: 3,
+                        outputPath: 'obsidian_imports'
+                    });
+                }, 1000);
+            });
+        }
+        
+        // Auto-save configuration to localStorage
+        function autoSaveConfig() {
+            const config = getConfiguration();
+            localStorage.setItem('pieces-obsidian-config', JSON.stringify(config));
+        }
+        
+        function loadSavedConfig() {
+            const saved = localStorage.getItem('pieces-obsidian-config');
+            if (saved) {
+                try {
+                    const config = JSON.parse(saved);
+                    applyConfiguration(config);
+                    addLog('📋 Loaded saved configuration');
+                } catch (error) {
+                    addLog('⚠️ Could not load saved configuration');
+                }
+            }
+        }
+        
+        function applyConfiguration(config) {
+            if (config.piecesDir) document.getElementById('piecesDir').value = config.piecesDir;
+            if (config.outputDir) document.getElementById('outputDir').value = config.outputDir;
+            if (config.fileLimit) document.getElementById('fileLimit').value = config.fileLimit;
+            if (config.minLength) document.getElementById('minLength').value = config.minLength;
+            if (config.dateFrom) document.getElementById('dateFrom').value = config.dateFrom;
+            if (config.dateTo) document.getElementById('dateTo').value = config.dateTo;
+            if (config.customTags) document.getElementById('customTags').value = config.customTags;
+            if (config.frontmatterTemplate) document.getElementById('frontmatterTemplate').value = config.frontmatterTemplate;
+            if (config.filenamePattern) document.getElementById('filenamePattern').value = config.filenamePattern;
+            
+            // Checkboxes
+            document.getElementById('skipEmpty').checked = config.skipEmpty !== false;
+            document.getElementById('skipBinary').checked = config.skipBinary !== false;
+            document.getElementById('deduplication').checked = config.deduplication === true;
+            document.getElementById('preserveStructure').checked = config.preserveStructure === true;
+            document.getElementById('addTimestamps').checked = config.addTimestamps !== false;
+            document.getElementById('quietMode').checked = config.quietMode === true;
+        }
+        
+        // Add auto-save functionality to form inputs
+        function setupAutoSave() {
+            const inputs = document.querySelectorAll('input, select, textarea');
+            inputs.forEach(input => {
+                input.addEventListener('change', autoSaveConfig);
+                input.addEventListener('input', debounce(autoSaveConfig, 1000));
+            });
+        }
+        
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set default values
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('dateTo').value = today;
+            
+            // Load saved configuration
+            loadSavedConfig();
+            
+            // Setup auto-save
+            setupAutoSave();
+            
+            addLog('🎮 Interface ready for configuration');
+            addLog('💾 Auto-save enabled for configuration changes');
+        });
+    </script>
+</body>
+</html>

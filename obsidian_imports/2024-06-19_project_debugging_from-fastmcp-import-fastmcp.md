@@ -1,12 +1,20 @@
----
-title: "The error message indicates that there should be t..."
-created: 2025-06-19T19:31:56.687540
-tags: [pieces-import, workstream]
-source: pieces
+---\n\ncontent_category: debugging
+content_category: debugging
+created: 2025-06-19 19:31:56.687540
 pieces_id: 10a12af2-c1df-4ec9-95bd-4b05a5c0f737
----
-
-# The error message indicates that there should be t...
+source: pieces
+tags:
+- pieces-import
+- workstream
+- debugging
+- '#project'
+- from
+- fastmcp
+- import
+title: From Fastmcp Import Fastmcp
+type: project
+workstream_activity: from-fastmcp-import-FastMCP
+---\n\n\n\n# The error message indicates that there should be t...
 
 The error message indicates that there should be two blank lines before the function definition. This is a common style guideline in Python to improve code readability. Here’s the corrected code snippet with the appropriate number of blank lines:
 

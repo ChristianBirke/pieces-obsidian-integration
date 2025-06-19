@@ -1,12 +1,20 @@
----
-title: "To effectively diagnose issues related to the Just..."
-created: 2025-06-19T19:31:56.686651
-tags: [pieces-import, workstream]
-source: pieces
+---\n\ncontent_category: debugging
+content_category: debugging
+created: 2025-06-19 19:31:56.686651
 pieces_id: 0742b5e8-3701-459d-a966-7ea666ff4519
----
-
-# To effectively diagnose issues related to the Just...
+source: pieces
+tags:
+- pieces-import
+- workstream
+- debugging
+- '#project'
+- recommended
+- tools
+- techniques
+title: Recommended Debugging Tools And Techniques
+type: project
+workstream_activity: Recommended-Debugging-Tools-and-Techniques
+---\n\n\n\n# To effectively diagnose issues related to the Just...
 
 To effectively diagnose issues related to the Just Prompt server's startup or command execution, several debugging tools and techniques can be employed. Here’s a detailed overview based on the context of your project:
 

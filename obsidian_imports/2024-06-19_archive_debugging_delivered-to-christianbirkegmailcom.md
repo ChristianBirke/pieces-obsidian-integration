@@ -1,12 +1,19 @@
----
-title: "Delivered-To: christianbirke@gmail.com"
-created: 2025-06-19T19:31:56.689198
-tags: [pieces-import, workstream]
-source: pieces
+---\n\ncontent_category: debugging
+content_category: debugging
+created: 2025-06-19 19:31:56.689198
 pieces_id: 2a3f646b-5eee-4f38-974b-c3b6c6609e5b
----
-
-# Delivered-To: christianbirke@gmail.com
+source: pieces
+tags:
+- pieces-import
+- workstream
+- debugging
+- '#archive'
+- delivered
+- christianbirkegmailcom
+title: Delivered To Christianbirkegmailcom
+type: archive
+workstream_activity: Delivered-To-christianbirkegmailcom
+---\n\n\n\n# Delivered-To: christianbirke@gmail.com
 
 ```md
 Delivered-To: christianbirke@gmail.com
