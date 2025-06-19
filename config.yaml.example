@@ -1,0 +1,29 @@
+# Pieces to Obsidian Converter - Configuration File
+# Copy this file to 'config.yaml' and customize as needed
+
+# Path to Pieces data directory (optional - will auto-detect if not specified)
+# pieces_dir: /custom/path/to/pieces/data
+
+# Output directory for converted markdown files
+output: obsidian_imports
+
+# Maximum number of files to process (optional - processes all if not specified)
+# limit: 50
+
+# Minimum content length to process (skip files shorter than this)
+min_length: 10
+
+# Reduce output verbosity
+quiet: false
+
+# Example configurations for different use cases:
+
+# For processing all files to a specific Obsidian vault:
+# output: /Users/yourname/Documents/MyObsidianVault/ImportedFromPieces
+
+# For processing only recent/longer content:
+# limit: 100
+# min_length: 50
+
+# For quiet automated processing:
+# quiet: true

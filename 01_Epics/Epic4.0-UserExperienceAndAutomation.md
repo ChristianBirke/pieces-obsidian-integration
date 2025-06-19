@@ -1,151 +1,90 @@
-# Epic 4.0 - User Experience & Automation
+# Epic 4.0 - User Experience Enhancement (Simplified)
 
 ## Epic Overview
-Enhance the integration with user-friendly interfaces, automation capabilities, and advanced features that make the tool practical for daily use.
+Add essential CLI features and configuration to make the working prototype more user-friendly and production-ready.
 
-## Epic Goals
-- Create intuitive command-line interface
-- Implement batch processing and scheduling
-- Add monitoring and progress tracking
-- Provide flexible automation options
+## Epic Goals (Lean Approach)
+- Add basic command-line arguments for flexibility
+- Remove hardcoded limitations from prototype
+- Simple configuration file support
+- Better title extraction and filtering
 
-## User Stories
+## User Stories (Simplified from 6 to 3)
 
-### US 4.1 - Command-Line Interface
+### US 4.1 - Basic CLI Interface
 **As a** user  
-**I want to** use a simple command-line interface  
-**So that** I can easily export and import my Workstream Activities  
+**I want to** specify input/output paths and basic options via command line  
+**So that** I can customize the converter without editing code  
 
 **Acceptance Criteria:**
-- [ ] Implement intuitive CLI commands and options
-- [ ] Provide helpful command documentation and examples
-- [ ] Support interactive and non-interactive modes
-- [ ] Include progress indicators for long operations
-- [ ] Implement command validation and helpful error messages
+- [ ] Add argparse for input/output directory paths
+- [ ] Support --limit option to control number of files processed
+- [ ] Add --help with clear usage examples
+- [ ] Include basic progress output
+- [ ] Simple error handling with helpful messages
 
 **Technical Notes:**
-- Use `click` or similar library for robust CLI handling
-- Support both verbose and quiet modes
-- Include shell completion support
-- Provide `--help` documentation for all commands
+- Use Python's built-in argparse (no external dependencies)
+- Keep interface simple and intuitive
+- Default to current behavior if no args provided
 
-### US 4.2 - Batch Processing Capabilities
+### US 4.2 - Enhanced Processing
 **As a** user  
-**I want to** process multiple Workstream Activities at once  
-**So that** I can efficiently manage large amounts of data  
+**I want to** process files without artificial limitations  
+**So that** I can convert all my Workstream Activities  
 
 **Acceptance Criteria:**
-- [ ] Support batch export from Pieces
-- [ ] Implement parallel processing for performance
-- [ ] Provide batch operation progress tracking
-- [ ] Handle partial failures gracefully
-- [ ] Generate batch operation reports
+- [ ] Remove hardcoded 5-file limit from prototype
+- [ ] Add date range filtering (--since, --until)
+- [ ] Improve title extraction from content (first meaningful line)
+- [ ] Add minimum content length filter to skip empty files
+- [ ] Support different output filename patterns
 
 **Technical Notes:**
-- Use threading or async processing for performance
-- Implement configurable batch sizes
-- Provide resume capability for interrupted operations
-- Include memory management for large batches
+- Parse dates from piece file metadata or content
+- Extract titles from first non-empty line or meaningful content
+- Add content validation before processing
 
-### US 4.3 - Scheduling and Automation
+### US 4.3 - Simple Configuration
 **As a** user  
-**I want to** schedule automatic imports  
-**So that** my Obsidian vault stays synchronized with Pieces  
+**I want to** save my preferences in a config file  
+**So that** I don't have to specify the same options repeatedly  
 
 **Acceptance Criteria:**
-- [ ] Implement scheduled import functionality
-- [ ] Support different scheduling patterns (daily, weekly, etc.)
-- [ ] Provide daemon/service mode operation
-- [ ] Include automatic conflict resolution
-- [ ] Generate automation logs and reports
+- [ ] Support simple YAML config file (config.yaml)
+- [ ] Override config with command-line arguments
+- [ ] Include paths, limits, and formatting options
+- [ ] Provide example config file
+- [ ] Graceful fallback if config file missing
 
 **Technical Notes:**
-- Use `schedule` library or cron integration
-- Implement proper daemon process management
-- Include configuration for automation behavior
-- Provide monitoring and health checks
+- Use PyYAML for config parsing (optional dependency)
+- Keep config structure flat and simple
+- Provide sensible defaults for all options
 
-### US 4.4 - Progress Monitoring and Feedback
-**As a** user  
-**I want to** see progress and status information  
-**So that** I understand what the tool is doing and when it will complete  
-
-**Acceptance Criteria:**
-- [ ] Implement real-time progress indicators
-- [ ] Provide detailed status information
-- [ ] Show estimated completion times
-- [ ] Display operation statistics and metrics
-- [ ] Support different output formats (console, JSON, etc.)
-
-**Technical Notes:**
-- Use progress bars for visual feedback
-- Implement structured status reporting
-- Include performance metrics collection
-- Support quiet mode for automated usage
-
-### US 4.5 - Configuration Management UI
-**As a** user  
-**I want to** easily manage configuration settings  
-**So that** I can customize the tool behavior without editing files manually  
-
-**Acceptance Criteria:**
-- [ ] Implement configuration validation and testing
-- [ ] Provide configuration templates for common scenarios
-- [ ] Support configuration profiles for different use cases
-- [ ] Include configuration backup and restore
-- [ ] Validate configuration changes before applying
-
-**Technical Notes:**
-- Implement interactive configuration setup
-- Support configuration inheritance and overrides
-- Include configuration migration for updates
-- Provide configuration documentation generation
-
-### US 4.6 - Integration Health Monitoring
-**As a** user  
-**I want to** monitor the health of my integration  
-**So that** I can identify and resolve issues proactively  
-
-**Acceptance Criteria:**
-- [ ] Implement health check commands
-- [ ] Monitor API connectivity and authentication
-- [ ] Check file system permissions and access
-- [ ] Validate configuration integrity
-- [ ] Generate health reports and recommendations
-
-**Technical Notes:**
-- Include connectivity tests for all external services
-- Implement diagnostic information collection
-- Provide troubleshooting guidance
-- Support automated health monitoring
-
-## Definition of Done
-- [ ] CLI interface is intuitive and well-documented
-- [ ] Batch processing works efficiently with large datasets
-- [ ] Automation features are reliable and configurable
-- [ ] Monitoring provides actionable insights
-- [ ] User experience is smooth and professional
+## Definition of Done (Simplified)
+- [ ] CLI accepts input/output paths and basic options
+- [ ] Tool processes all available files (no artificial limits)
+- [ ] Config file support for common preferences
+- [ ] Better title extraction from content
+- [ ] Clear error messages and basic progress feedback
 
 ## Dependencies
-- Completion of Epic 3.0 (Core Integration Implementation)
-- User feedback on core functionality
-- Performance testing results
+- ✅ Epic 3.0 Complete - Working prototype ready for enhancement
 
-## Estimated Effort
-**Story Points:** 18  
-**Duration:** 2-3 weeks
+## Estimated Effort (Simplified)
+**Story Points:** 6 (down from 18)  
+**Duration:** 1-2 days (down from 2-3 weeks)  
+**Implementation:** 6-8 hours total
 
-## Technical Implementation Notes
-- **CLI Framework:** `click` with rich formatting support
-- **Progress Tracking:** `tqdm` or `rich.progress`
-- **Scheduling:** `schedule` library or system cron integration
-- **Configuration:** YAML/JSON with schema validation
-- **Monitoring:** Custom health check framework
-- **Logging:** Structured logging with configurable levels
+## Technical Implementation Notes (Lean)
+- **CLI Framework:** Built-in `argparse` (zero dependencies)
+- **Configuration:** Simple YAML file with `PyYAML` (optional)
+- **Progress:** Basic print statements, no fancy progress bars needed
+- **Focus:** Essential functionality, not enterprise features
 
-## User Experience Considerations
-- Provide sensible defaults for all configuration options
-- Include comprehensive help and documentation
-- Support both novice and advanced user workflows
-- Ensure consistent behavior across different platforms
-- Prioritize performance for large-scale operations
+## User Experience Considerations (Simplified)
+- Maintain zero-dependency core functionality
+- Command-line args override config file settings
+- Sensible defaults so tool works without configuration
+- Keep it simple - users can use cron for scheduling if needed
