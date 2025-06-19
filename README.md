@@ -32,7 +32,7 @@ This project creates an automated integration between [Pieces](https://pieces.ap
 ### Immediate Usage (2 minutes)
 ```bash
 # Clone and run the working converter
-git clone https://github.com/yourusername/pieces-obsidian-integration.git
+git clone https://github.com/ChristianBirke/pieces-obsidian-integration.git
 cd pieces-obsidian-integration
 
 # Run the converter
